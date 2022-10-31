@@ -59,6 +59,7 @@
   "scripts": {
     "build": "webpack --silent",
     "exec": "npm run --silent build && node dist/index.js",
+    "exec:rheaply": "npm run --silent build && node dist/index.js --start=2022-10-01T00:00:00 --end=2022-10-28T23:59:59 --query='repo:Rheaply/groot-frontend repo:Rheaply/groot-backend repo:Rheaply/banana-stand repo:Rheaply/mr-manager repo:Rheaply/middleman repo:Rheaply/caged-wisdom repo:Rheaply/model-home repo:Rheaply/warden-gentles repo:Rheaply/frightened-inmate-number-two repo:Rheaply/juice-box'",
     "lint": "eslint . --ext 'ts,js'",
     "lint:fix": "eslint . --fix --ext 'ts,js'",
     "test": "jest"

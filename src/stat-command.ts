@@ -38,6 +38,7 @@ interface PullRequestStat {
   timeToMergeSecondsMedian: number;
   timeToMergeFromFirstReviewSecondsAverage: number;
   timeToMergeFromFirstReviewSecondsMedian: number;
+  percentLessThan1AndHalfDays: number
 }
 export function createStat(prs: PullRequest[]): PullRequestStat {
   const leadTimes = prs.map((pr) => pr.leadTimeSeconds);
@@ -59,7 +60,15 @@ export function createStat(prs: PullRequest[]): PullRequestStat {
     timeToMergeSecondsMedian: Math.floor(median(timeToMerges)),
     timeToMergeFromFirstReviewSecondsAverage: Math.floor(average(timeToMergeFromFirstReviews)),
     timeToMergeFromFirstReviewSecondsMedian: Math.floor(median(timeToMergeFromFirstReviews)),
+    percentLessThan1AndHalfDays: percentTimeToMergeLessThan1AndHalfDays(timeToMerges)
   };
+}
+
+function percentTimeToMergeLessThan1AndHalfDays(timeToMerges: number[]): number {
+  let mergesLessThan1AndHalfDays = timeToMerges.filter((time) => {
+    return time < 129600;
+  })
+  return mergesLessThan1AndHalfDays.length / timeToMerges.length;
 }
 
 function average(numbers: number[]): number {

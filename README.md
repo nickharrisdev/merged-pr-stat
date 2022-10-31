@@ -1,13 +1,16 @@
 # merged-pr-stat
-This is a tool to creates merged PullRequest statistics.  It is useful to measure the productivity and health of your team.
+
+This is a tool to creates merged PullRequest statistics. It is useful to measure the productivity and health of your team.
 
 ## Installation
+
 ```
 $ npm install -g shibayu36/merged-pr-stat
 ```
 
 ## Usage
-The following command aggregates PullRequests of microsoft/vscode and microsoft/TypesScript which merged between `--start` and `--end`.  You can filter PullRequests by `--query` option.  See also https://docs.github.com/en/github/searching-for-information-on-github/searching-issues-and-pull-requests if you want to know what you can specify for `--query`
+
+The following command aggregates PullRequests of microsoft/vscode and microsoft/TypesScript which merged between `--start` and `--end`. You can filter PullRequests by `--query` option. See also https://docs.github.com/en/github/searching-for-information-on-github/searching-issues-and-pull-requests if you want to know what you can specify for `--query`
 
 ```
 $ GITHUB_TOKEN=... merged-pr-stat --start=2020-07-01T00:00:00 --end=2020-07-30T23:59:59 --query="repo:microsoft/vscode repo:microsoft/TypeScript"
@@ -28,25 +31,26 @@ output is
   "timeToMergeSecondsAverage": 735697,
   "timeToMergeSecondsMedian": 82453,
   "timeToMergeFromFirstReviewSecondsAverage": 426871,
-  "timeToMergeFromFirstReviewSecondsMedian": 15432
+  "timeToMergeFromFirstReviewSecondsMedian": 15432,
+  "percentLessThan1AndHalfDays": 0.54
 }
 ```
 
-* count: the number of merged PullRequests
-* authorCount: the number of author who creates PullRequests
-* additionsAverage: the average of number of added lines
-* additionsMedian: the median of number of added lines
-* deletionsAverage: the average of number of deleted lines
-* deletionsMedian: the median of number of deleted lines
-* leadTimeSecondsAverage: the average of seconds between a first commit date and a PullRequest merged date
-* leadTimeSecondsMedian: the median of seconds between a first commit date and a PullRequest merged date
-* timeToMergeSecondsAverage: the average of seconds between a PullRequest created and a PullRequest merged
-* timeToMergeSecondsMedian: the median of seconds between a PullRequest created and a PullRequest merged
-* timeToMergeFromFirstReviewSecondsAverage: the average of seconds between a first review  and a PullRequest merged.
-* timeToMergeFromFirstReviewSecondsMedian: the median of seconds between a first review  and a PullRequest merged.
+- count: the number of merged PullRequests
+- authorCount: the number of author who creates PullRequests
+- additionsAverage: the average of number of added lines
+- additionsMedian: the median of number of added lines
+- deletionsAverage: the average of number of deleted lines
+- deletionsMedian: the median of number of deleted lines
+- leadTimeSecondsAverage: the average of seconds between a first commit date and a PullRequest merged date
+- leadTimeSecondsMedian: the median of seconds between a first commit date and a PullRequest merged date
+- timeToMergeSecondsAverage: the average of seconds between a PullRequest created and a PullRequest merged
+- timeToMergeSecondsMedian: the median of seconds between a PullRequest created and a PullRequest merged
+- timeToMergeFromFirstReviewSecondsAverage: the average of seconds between a first review and a PullRequest merged.
+- timeToMergeFromFirstReviewSecondsMedian: the median of seconds between a first review and a PullRequest merged.
+- percentLessThan1AndHalfDays: the percentage of PR merges that took less than 1.5 days from creation to merged.
 
 If you want to know about leadTime and timeToMerge for details, See https://sourcelevel.io/blog/5-metrics-engineering-managers-can-extract-from-pull-requests
-
 
 ```
 |------------- lead time -------------|
@@ -57,6 +61,7 @@ first commit    create PullRequest    merge PullRequest
 ```
 
 ### log command
+
 If you want to get raw information about PullRequests, you can use `log` command.
 
 ```
@@ -66,9 +71,25 @@ $ GITHUB_TOKEN=... merged-pr-stat log --start=2020-07-01T00:00:00 --end=2020-07-
 Use `--format` option if you need other formats (ex. csv).
 
 ## GitHub Enterprise Support
-In case you are using GitHub Enterprise, you can use by setting `GITHUB_ENDPOINT=https://<HOST>/api/graphql`.  
 
-For example 
+In case you are using GitHub Enterprise, you can use by setting `GITHUB_ENDPOINT=https://<HOST>/api/graphql`.
+
+For example
+
 ```
 $ GITHUB_TOKEN=... GITHUB_ENDPOINT=https://<HOST>/api/graphql merged-pr-stat --start=2020-07-01T00:00:00 --end=2020-07-30T23:59:59 --query="repo:org/repository"
 ```
+
+## nickharrisdev fork
+
+### Usage
+
+Run npm i
+
+Ensure the GITHUB_TOKEN variable is set in the appropriate file to be accessible from the command line. e.g. in `~/.bash_profile` --
+
+```
+export GITHUB_TOKEN=token-goes-here
+```
+
+Then run `npm run exec:rheaply` to run the query for Rheaply's primary repositories.
